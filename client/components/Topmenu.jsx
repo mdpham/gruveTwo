@@ -25,7 +25,7 @@ Topmenu = React.createClass({
 		return (
 			<div className="ui top menu" style={{marginBottom: 0}}>
 				<div className="cursored item" onClick={this.toggleTopbar}>
-					<div className="ui huge header">g2</div>
+					<div className="ui header"><i className="circular icon">g2</i></div>
 				</div>
 				<div className="item">
 					{ this.props.selectedUser ? <div className="ui header">{this.props.selectedUser.name}<div className="sub header"></div></div> : "" }
@@ -33,7 +33,7 @@ Topmenu = React.createClass({
 				<div className="show-player cursored right item">
 					<i className="big orange video play icon"></i>
 				</div>
-				<Player selectedUser={this.props.selectedUser} selectedTrack={this.props.selectedTrack}/>
+				<Player selectedUser={this.props.selectedUser} selectedTrack={this.props.selectedTrack} updateSelectedTrack={this.props.updateSelectedTrack}/>
 			</div>
 		)
 	}

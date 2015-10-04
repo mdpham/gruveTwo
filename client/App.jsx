@@ -89,6 +89,13 @@ App = React.createClass({
 	},
 	handleSelectedTrackUpdate(track) {
 		var _this = this;
+		soundManager.destroySound("current");
+		soundManager.createSound({
+			autoLoad: true,
+			autoPlay: true,
+			id: "current",
+			url: track.stream_url+"?client_id=d0188b58e48199057351dfe3a4971768"
+		});
 		console.log("updating track:", track);
 		_this.setState({selectedTrack: track});
 	},
@@ -100,7 +107,7 @@ App = React.createClass({
 				<Topbar updateSelectedUser={this.handleSelectedUserUpdate} friends={this.props.friends} loadingSelected={this.state.loadingSelected}/>
 				
 				<div className="pusher">
-				<Topmenu selectedTrack={this.state.selectedTrack} selectedUser={this.state.selectedUser}/>
+				<Topmenu selectedTrack={this.state.selectedTrack} selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate}/>
 				{ this.state.selectedUser ? <Tracks selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate}/> : <Entry /> }
 				</div>
 			</div>
