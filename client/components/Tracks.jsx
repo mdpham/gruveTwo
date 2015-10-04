@@ -1,5 +1,5 @@
-//Player
-Player = React.createClass({
+//Tracks
+Tracks = React.createClass({
 	componentDidMount() {
 		// console.log($(React.findDOMNode(this.refs.playerModal)));
 		// $(React.findDOMNode(this.refs.playerModal)).modal("show");
@@ -16,7 +16,7 @@ Player = React.createClass({
 	},
 	//For listing tracks
 
-	renderTracks() {
+	renderAllTracks() {
 		return (this.props.selectedUser.favorites.map((track) => {
 			return (
 				<Track track={track} key={track.id} updateSelectedTrack={this.props.updateSelectedTrack}/>
@@ -26,10 +26,11 @@ Player = React.createClass({
 
 	//RENDER//
 	render() {
+		const style = {maxHeight: (window.innerHeight - $(".top.menu").outerHeight(true)), overflow: "scroll"};
 		return (
-			<div className="ui stackable padded grid">
-					{this.renderTracks()}
-			</div>
+				<div className="ui stackable padded grid" style={style}>
+						{this.renderAllTracks()}
+				</div>
 		);
 	}
 })

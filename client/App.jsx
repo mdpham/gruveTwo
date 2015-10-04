@@ -23,7 +23,7 @@ App = React.createClass({
 		  },
 		  defaultOptions: {
 		    // set global default volume for all sound objects
-		    volume: 50
+		    volume: 10
 		  }
 		});
 	},
@@ -79,8 +79,8 @@ App = React.createClass({
 					favorites: favorites
 				};
 				_this.setState({selectedUser: selected});
-				//Hide user selection segment
-				$(".entry-content").transition("fade down");
+				//Hide user selection topbar
+				$(".ui.top.sidebar").sidebar("hide");
 			})
 		});
 	},
@@ -94,8 +94,13 @@ App = React.createClass({
 	render() {
 		return (
 			<div id="app">
-				<Entry updateSelected={this.handleSelectedUserUpdate} friends={this.props.friends} loadingSelected={this.state.loadingSelected}/>
-				{ this.state.selectedUser ? <Player selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate}/> : "" }
+				<Topbar updateSelected={this.handleSelectedUserUpdate} friends={this.props.friends} loadingSelected={this.state.loadingSelected}/>
+				
+				<div className="pusher">
+				<Topmenu selectedTrack={this.state.selectedTrack}/>
+				{ this.state.selectedUser ? <Tracks selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate}/> : <Entry /> }
+				</div>
+
 			</div>
 		);
 	}

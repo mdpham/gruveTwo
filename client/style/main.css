@@ -2,3 +2,7 @@
 .cursored {
 	cursor: pointer;
 }
+
+div.top.menu {
+	background-color: white !important;
+}
