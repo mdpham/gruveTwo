@@ -1,9 +1,18 @@
 Topmenu = React.createClass({
+	componentDidMount(){
+		$(".show-player").popup({
+			context: ".top.menu", 
+			popup: $(".player-popup"),
+			on: "click",
+			position: "bottom right"
+		});
+	},
+
 	//METHODS//
 	toggleTopbar() {
 		$(".ui.top.sidebar").sidebar({
 			context: $("#app"),
-			transition: "overlay"
+			transition: "scale down"
 		}).sidebar("toggle");
 	},
 
@@ -11,19 +20,19 @@ Topmenu = React.createClass({
 	render() {
 		const trackTitle = this.props.selectedTrack ? this.props.selectedTrack.title : "";
 		const trackArtist = this.props.selectedTrack ? this.props.selectedTrack.user.usename : "";
+		// console.log("selectedUser", this.props.selectedUser);
 		return (
-			<div className="ui top text menu">
+			<div className="ui top menu">
 				<div className="cursored item" onClick={this.toggleTopbar}>
 					<div className="ui huge header">g2</div>
 				</div>
 				<div className="item">
-					{ this.props.selectedTrack ? <div className="ui header">{trackTitle}<div className="sub header"></div></div> : "" }
-
-					
+					{ this.props.selectedUser ? <div className="ui header">{this.props.selectedUser.name}<div className="sub header"></div></div> : "" }
 				</div>
-				<div className="item">
-					
-				</div>				
+				<div className="show-player cursored right item">
+					<i className="big orange video play icon"></i>
+				</div>
+				<Player />
 			</div>
 		)
 	}

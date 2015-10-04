@@ -26,9 +26,9 @@ Tracks = React.createClass({
 
 	//RENDER//
 	render() {
-		const style = {maxHeight: (window.innerHeight - $(".top.menu").outerHeight(true)), overflow: "scroll"};
+		const fixedStyle = {maxHeight: (window.innerHeight - $(".top.menu").outerHeight(true)), overflow: "scroll"};
 		return (
-				<div className="ui stackable padded grid" style={style}>
+				<div className="ui stackable padded grid" style={fixedStyle}>
 						{this.renderAllTracks()}
 				</div>
 		);

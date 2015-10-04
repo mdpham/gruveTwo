@@ -1,13 +1,11 @@
 Entry = React.createClass({
 	//RENDER//
 	render() {
-		console.log(window);
 		// const style = {height: window.innerHeight}
 		return (
 			<div className="ui segments">
 				<div className="ui segment">
 					<div className="ui header">
-						<i className="circular icon">g2</i>
 						<div className="content">
 							gruvetwo
 							<div className="sub header">Click on the "g2" icon in the top left corner to open the menu and begin</div>

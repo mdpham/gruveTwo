@@ -61,6 +61,7 @@ App = React.createClass({
 
 	//METHODS//
 	handleSelectedUserUpdate(selected) {
+		console.log(selected);
 		var _this = this;
 		_this.setState({loadingSelected: true});
 		// Resolve url with username
@@ -73,12 +74,14 @@ App = React.createClass({
 					return track;
 				});
 				_this.setState({loadingSelected: false});
+				console.log(selected);
 				//Pass track data to player
-				let selected = {
+				let newSelected = {
 					user: user,
+					name: selected.name,
 					favorites: favorites
 				};
-				_this.setState({selectedUser: selected});
+				_this.setState({selectedUser: newSelected});
 				//Hide user selection topbar
 				$(".ui.top.sidebar").sidebar("hide");
 			})
@@ -94,13 +97,12 @@ App = React.createClass({
 	render() {
 		return (
 			<div id="app">
-				<Topbar updateSelected={this.handleSelectedUserUpdate} friends={this.props.friends} loadingSelected={this.state.loadingSelected}/>
+				<Topbar updateSelectedUser={this.handleSelectedUserUpdate} friends={this.props.friends} loadingSelected={this.state.loadingSelected}/>
 				
 				<div className="pusher">
-				<Topmenu selectedTrack={this.state.selectedTrack}/>
+				<Topmenu selectedTrack={this.state.selectedTrack} selectedUser={this.state.selectedUser}/>
 				{ this.state.selectedUser ? <Tracks selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate}/> : <Entry /> }
 				</div>
-
 			</div>
 		);
 	}
