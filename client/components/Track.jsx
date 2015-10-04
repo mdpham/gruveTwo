@@ -15,11 +15,11 @@ Track = React.createClass({
 	},
 	//Click handler for playing track
 	clickTrack: function(track){
-		soundManager.destroySound("playingSound");
+		soundManager.destroySound("current");
 		soundManager.createSound({
 			autoLoad: true,
 			autoPlay: true,
-			id: "playingSound",
+			id: "current",
 			url: track.stream_url+"?client_id=d0188b58e48199057351dfe3a4971768"
 		});
 		this.props.updateSelectedTrack(track);

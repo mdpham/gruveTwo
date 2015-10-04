@@ -3,7 +3,7 @@ Entry = React.createClass({
 	render() {
 		// const style = {height: window.innerHeight}
 		return (
-			<div className="ui segments">
+			<div className="ui segments" style={{marginTop: 0}}>
 				<div className="ui segment">
 					<div className="ui header">
 						<div className="content">

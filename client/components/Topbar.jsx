@@ -5,12 +5,11 @@ Topbar = React.createClass({
 	//After initial rendering//
 	componentDidMount() {
 		// this.selectUser();
-		
 	},
 
 	//METHODS//
 	selectUser(friend) {
-		var selected = friend ? friend : _.sample(Entry.props.friends);
+		var selected = friend ? friend : _.sample(this.props.friends);
 		//Update parent/owner
 		this.props.updateSelectedUser(selected);
 		//Hide topbar
