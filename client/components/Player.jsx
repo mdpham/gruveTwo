@@ -17,6 +17,11 @@ Player = React.createClass({
 		const pauseState = current.paused;
 		this.setState({paused: pauseState});
 	},
+	toggleStop() {
+		var current = soundManager.getSoundById("current");
+		current.stop();
+		this.setState({paused: true});
+	},
 	changeVolume(up) {
 		var current = soundManager.getSoundById("current");
 		const delta = up ? 5 : -5;
@@ -42,8 +47,7 @@ Player = React.createClass({
 		const user = this.props.selectedUser;
 		const track = this.props.selectedTrack;
 		//Styling
-		const playButtonClasses = (this.state.paused ? " play " : " pause ") + "large icon";
-		const trackingBarStyle = {backgroundColor: randomColor({luminosity: "light"})};
+		const playButtonClasses = (this.state.paused ? " play " : " pause ") + "icon";
 		return (
 			<div className="player-popup ui fluid popup">
 				
@@ -51,34 +55,49 @@ Player = React.createClass({
 					<div className="ui fluid grid inverted segment">
 						<div className="middle aligned row">
 							<div className="three wide column">
-								<div className="ui medium fluid image">
-									<img src={track.artwork_url}></img>
+								<div className="ui medium fluid fade reveal image">
+									<img className="visible content fluid image" src={track.artwork_url}></img>
+									<img className="hidden content fluid image" src={track.user.avatar_url}></img>
+									<div className="loading-progress ui inverted white bottom attached progress">
+										<div className="bar"></div>
+									</div>
 								</div>
 							</div>
 							<div className="eleven wide column">
 								{/* CURRENT TRACK INFO */}
 								<div className="ui inverted header">
-									<a className="white" href={track.permalink_url} target="_blank"><span>{track.title}</span></a>
-									<div className="sub header"><a href={track.user.permalink_url} target="_blank"><span>{track.user.username}</span></a></div>
+									<a style={{color:"white"}} href={track.permalink_url} target="_blank"><span>{track.title}</span></a>
+									<div className="sub header"><a style={{color:"grey"}}href={track.user.permalink_url} target="_blank"><span>{track.user.username}</span></a></div>
 
 								</div>
 								{/* PLAYER FUNCTIONS */}
 								<div className="ui fluid middle aligned grid">
 									<div className="two wide column">
-										<div className="ui large fluid inverted basic green icon button" onClick={this.togglePause}>
+										<div className="ui large fluid circular inverted basic green icon button" onClick={this.togglePause}>
 											<i className={playButtonClasses}></i>
 										</div>
 									</div>
-									<div className="six wide column segment">
-										<div className="ui large fluid icon buttons">
-											<div className="ui inverted basic yellow button" onClick={this.changeVolume.bind(this, false)}><i className="large volume down icon"></i></div>
-											<div className="ui inverted basic yellow button" onClick={this.changeVolume.bind(this, true)}><i className="large volume up icon"></i></div>
-											<div className="ui inverted basic yellow button" onClick={this.muteVolume}><i className={(this.state.muted ? "red ":"")+"large volume off icon"}></i></div>
+									<div className="two wide column">
+										<div className="ui large fluid circular inverted basic green icon button" onClick={this.toggleStop}>
+											<i className="stop icon"></i>
+										</div>
+									</div>
+									<div className="six wide column">
+
+										<div className="ui inverted segment">
+											<div className="volume-progress ui inverted white top attached progress">
+												<div className="bar"></div>
+											</div>
+											<div className="ui large fluid icon buttons">
+												<div className="ui circular inverted basic yellow button" onClick={this.changeVolume.bind(this, false)}><i className="volume down icon"></i></div>
+												<div className="ui circular inverted basic yellow button" onClick={this.changeVolume.bind(this, true)}><i className="volume up icon"></i></div>
+												<div className="ui circular inverted basic yellow button" onClick={this.muteVolume}><i className={(this.state.muted ? "red ":"")+"volume off icon"}></i></div>
+											</div>
 										</div>
 									</div>
 									<div className="two wide column">
-										<div className="ui large fluid inverted basic red icon button" onClick={this.playNext}>
-											<i className="large circular icons">
+										<div className="ui large fluid circular inverted basic red icon button" onClick={this.playNext}>
+											<i className="circular icons">
 												<i className="random icon"></i>
 												<i className="corner inverted pink heart icon"></i>
 											</i>
@@ -89,19 +108,27 @@ Player = React.createClass({
 
 								<div className="ui inverted header">
 									<div className="sub header">Courtesy of:</div>
-									{user.name}
+									<a style={{color:"white"}} href={user.user.permalink_url} target="_blank">{user.name}</a>
 								</div>
 							</div>
 							<div className="two wide column">2</div>
 						</div>
 						<div className="middle aligned row">
 							<div className="sixteen wide column">
-								<div className="current-track-progress ui progress" style={{backgroundColor: 'white'}}><div className="bar" style={trackingBarStyle}><div className="progress"><span className="position-duration"></span></div></div><div className="label"></div></div>
+								<div className="current-track-progress ui progress" style={{backgroundColor: 'grey'}}>
+									<div className="bar" style={{backgroundColor: "white"}}>
+										<div className="progress" style={{color: "black"}}><span className="position-duration"></span></div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 					:
-					<div className="sixteen wide column">No Tracks being played</div>
+					<div className="ui fluid grid inverted segment">
+						<div className="middle aligned row">
+							<div className="sixteen wide column"><h2 className="ui centered inverted header">Select a Track to Play</h2></div>
+						</div>
+					</div>
 				}
 			</div>
 		);

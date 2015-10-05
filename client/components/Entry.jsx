@@ -61,7 +61,15 @@ Entry = React.createClass({
 							</div>
 						</div>
 
-
+						<div className="one column row">
+							<div className="ui header column">
+								<i className="circular random icon"></i>
+								<div className="content">
+									Play Another Track
+									<div className="sub header">Plays a favorited track from the user you're currently browsing</div>
+								</div>
+							</div>
+						</div>
 
 					</div>
 				</div>

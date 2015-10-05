@@ -71,6 +71,7 @@ App = React.createClass({
 			HTTP.call("get", "http://api.soundcloud.com/users/"+user.id+"/favorites?client_id=d0188b58e48199057351dfe3a4971768",{params: {limit: 10}}, function(error, result){
 				var favorites = result.data.map((track) => {
 					track.artwork_url = track.artwork_url ? track.artwork_url.replace("large", "t500x500") : track.user.avatar_url.replace("large", "t500x500");
+					track.user.avatar_url = track.user.avatar_url ? track.user.avatar_url.replace("large", "t500x500") : "";
 					return track;
 				});
 				_this.setState({loadingSelected: false});
@@ -95,10 +96,17 @@ App = React.createClass({
 			autoPlay: true,
 			id: "current",
 			url: track.stream_url+"?client_id=d0188b58e48199057351dfe3a4971768",
+			whileloading: function(){
+				$(".loading-progress .bar").width((10 + (90*this.bytesLoaded/this.bytesTotal))+"%");
+			},
 			whileplaying: function(){
 				//Update duration tracker
 				$(".current-track-progress .bar").width((10 + (90*this.position/this.duration))+"%");
-				$(".current-track-progress .bar .progress .position-duration").text(moment.utc(this.position).format("mm:ss")+"/"+moment.utc(this.duration).format("mm:ss"));
+				$(".current-track-progress .bar .progress .position-duration").text(moment.utc(this.position).format("m:ss")+"/"+moment.utc(this.duration).format("m:ss"));
+			},
+			onstop: function(){
+				$(".current-track-progress .bar").width("10%"); //min is 10
+				$(".current-track-progress .bar .progress .position-duration").text(moment.utc(0).format("m:ss")+"/"+moment.utc(this.duration).format("m:ss"));
 			},
 			onfinish: function(){
 				var randomTrack = _.sample(_this.state.selectedUser.favorites);
