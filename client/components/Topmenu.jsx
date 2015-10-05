@@ -5,7 +5,11 @@ Topmenu = React.createClass({
 			popup: $(".player-popup"),
 			on: "hover",
 			hoverable: true,
-			position: "bottom right"
+			position: "bottom right",
+			delay: {
+				show: 250,
+				hide: 500
+			}
 		});
 	},
 
@@ -38,7 +42,17 @@ Topmenu = React.createClass({
 						""
 					}
 				<div className="show-player cursored right item">
-					<i className="big orange video play icon"></i>
+				{ this.props.selectedTrack ? 
+					<div className="ui right aligned header">
+					<div className="sub header">
+						<span className="position-duration"></span>
+					</div>
+					<div className="sub header">
+						<span className="volume-indicator"></span><i className="volume up icon"></i>
+					</div>
+					</div>
+					:
+					<i className="big orange video play icon"></i> }
 				</div>
 				<Player selectedUser={this.props.selectedUser} selectedTrack={this.props.selectedTrack} updateSelectedTrack={this.props.updateSelectedTrack}/>
 			</div>

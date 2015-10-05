@@ -23,7 +23,7 @@ App = React.createClass({
 		  },
 		  defaultOptions: {
 		    // set global default volume for all sound objects
-		    volume: 10
+		    volume: 50
 		  }
 		});
 	},
@@ -90,11 +90,14 @@ App = React.createClass({
 	},
 	handleSelectedTrackUpdate(track) {
 		var _this = this;
+		var current = soundManager.getSoundById("current");
+		var volume = current ? current.volume : 50;
 		soundManager.destroySound("current");
 		soundManager.createSound({
 			autoLoad: true,
 			autoPlay: true,
 			id: "current",
+			volume: volume,
 			url: track.stream_url+"?client_id=d0188b58e48199057351dfe3a4971768",
 			whileloading: function(){
 				$(".loading-progress .bar").width((10 + (90*this.bytesLoaded/this.bytesTotal))+"%");
@@ -102,7 +105,9 @@ App = React.createClass({
 			whileplaying: function(){
 				//Update duration tracker
 				$(".current-track-progress .bar").width((10 + (90*this.position/this.duration))+"%");
-				$(".current-track-progress .bar .progress .position-duration").text(moment.utc(this.position).format("m:ss")+"/"+moment.utc(this.duration).format("m:ss"));
+				$("span.position-duration").text(moment.utc(this.position).format("m:ss")+"/"+moment.utc(this.duration).format("m:ss"));
+				//Volume
+				$("span.volume-indicator").text(Math.max(Math.min(this.volume, 100), 0));
 			},
 			onstop: function(){
 				$(".current-track-progress .bar").width("10%"); //min is 10
