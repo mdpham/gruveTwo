@@ -26,7 +26,7 @@ Topbar = React.createClass({
 		});
 		// console.log(elements);
 		return (
-			<div className="ui vertical fluid buttons">
+			<div className="ui vertical compact basic inverted fluid buttons">
 				{elements}
 			</div>
 		);
@@ -40,13 +40,25 @@ Topbar = React.createClass({
 				<div className="ui inverted segment">
   				<div className={loadingClassName}><div className="ui text loader">Fetching...</div></div>
 					<div className="ui grid container">
-						<div className="five wide column">
-								{ this.renderUserButtons() }
+						<div className="three wide column">
+							<h6 className="ui inverted horizontal divider">People</h6>
+							{ this.renderUserButtons() }
 						</div>
 						<div className="eleven wide column">
+							<h1 className="ui blue center aligned inverted header">gruvetwo</h1>
+							<h3 className="ui inverted header">
+								<span>
+								This is my <a href="https://github.com/mdpham/gruveTwo" target="_blank">first attempt</a> at a Soundcloud app built on React and Meteor after some frustration with Angular.
+								I haven't really figured out if React's states lend themselves better to making use of the Soundcloud API + SoundManager2 than Angular's dependency injections, but I quite like both.
+								</span>
+								<br></br>
+								<span>
+								Click any of the Soundcloud users to the right to browse and play their favourite tracks. Still waiting on <a href="https://soundcloud.com/leeemichael" target="_blank">this guy</a> and even <a href="https://soundcloud.com/rfeng-2" target="_blank">this guy</a> to start liking tracks.
+								</span>
+							</h3>
 							{/*Button for random selection*/}
 							<div 
-								className="ui fluid button" 
+								className="ui compact basic inverted fluid button" 
 								onClick={this.selectUser.bind(this, null)}>
 								Random
 							</div>

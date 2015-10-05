@@ -52,7 +52,14 @@ Topmenu = React.createClass({
 					</div>
 					</div>
 					:
-					<i className="big orange video play icon"></i> }
+					<div className="ui right aligned header">
+					<div className="sub header">
+						powered by
+					</div>
+					<div className="sub header">
+						<i className="big orange soundcloud icon"></i>
+					</div>
+					</div> }
 				</div>
 				<Player selectedUser={this.props.selectedUser} selectedTrack={this.props.selectedTrack} updateSelectedTrack={this.props.updateSelectedTrack}/>
 			</div>

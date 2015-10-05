@@ -110,7 +110,7 @@ Player = React.createClass({
 									<a style={{color:"white"}} href={user.user.permalink_url} target="_blank">{user.name}</a>
 								</div>
 							</div>
-							<div className="two wide column">2</div>
+							<div className="two wide column"></div>
 						</div>
 						<div className="middle aligned row">
 							<div className="sixteen wide column">

@@ -6,12 +6,11 @@ Entry = React.createClass({
 			<div className="ui segments" style={{marginTop: 0}}>
 				<div className="ui segment">
 					<div className="ui header">
-						<div className="content">
-							gruvetwo
-							<div className="sub header">Click on the "g2" icon in the top left corner to open the menu and begin</div>
-						</div>
+						Click on the "g2" icon in the top left corner to open the menu and begin
 					</div>
-					<div className="ui horizontal divider"></div>
+					<div className="ui header">
+						Hover over the top right corner to open the player
+					</div>
 				</div>
 
 				<div className="ui segment">

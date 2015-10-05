@@ -67,8 +67,8 @@ App = React.createClass({
 		// Resolve url with username
 		HTTP.call("get", "http://api.soundcloud.com/resolve.json?url=http://soundcloud.com/"+selected.username+"&client_id=d0188b58e48199057351dfe3a4971768", function(error,result){
 			var user = result.data;
-			// HTTP.call("get", "http://api.soundcloud.com/users/"+user.id+"/favorites?client_id=d0188b58e48199057351dfe3a4971768",{params: {limit: user.public_favorites_count}}, function(error, result){
-			HTTP.call("get", "http://api.soundcloud.com/users/"+user.id+"/favorites?client_id=d0188b58e48199057351dfe3a4971768",{params: {limit: 10}}, function(error, result){
+			HTTP.call("get", "http://api.soundcloud.com/users/"+user.id+"/favorites?client_id=d0188b58e48199057351dfe3a4971768",{params: {limit: user.public_favorites_count}}, function(error, result){
+			// HTTP.call("get", "http://api.soundcloud.com/users/"+user.id+"/favorites?client_id=d0188b58e48199057351dfe3a4971768",{params: {limit: 10}}, function(error, result){
 				var favorites = result.data.map((track) => {
 					track.artwork_url = track.artwork_url ? track.artwork_url.replace("large", "t500x500") : track.user.avatar_url.replace("large", "t500x500");
 					track.user.avatar_url = track.user.avatar_url ? track.user.avatar_url.replace("large", "t500x500") : "";
