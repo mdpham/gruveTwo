@@ -1,4 +1,8 @@
 Player = React.createClass({
+	componentDidMount() {
+
+	},
+
 	getInitialState() {
 		return ({
 			paused: false,
@@ -37,7 +41,9 @@ Player = React.createClass({
 	render() {
 		const user = this.props.selectedUser;
 		const track = this.props.selectedTrack;
+		//Styling
 		const playButtonClasses = (this.state.paused ? " play " : " pause ") + "large icon";
+		const trackingBarStyle = {backgroundColor: randomColor({luminosity: "light"})};
 		return (
 			<div className="player-popup ui fluid popup">
 				
@@ -52,8 +58,8 @@ Player = React.createClass({
 							<div className="eleven wide column">
 								{/* CURRENT TRACK INFO */}
 								<div className="ui inverted header">
-									{track.title}
-									<div className="sub header">{track.user.username}</div>
+									<a className="white" href={track.permalink_url} target="_blank"><span>{track.title}</span></a>
+									<div className="sub header"><a href={track.user.permalink_url} target="_blank"><span>{track.user.username}</span></a></div>
 
 								</div>
 								{/* PLAYER FUNCTIONS */}
@@ -90,7 +96,7 @@ Player = React.createClass({
 						</div>
 						<div className="middle aligned row">
 							<div className="sixteen wide column">
-								<div className="current-track-progress ui progress" style={{backgroundColor: 'white'}}><div className="pink bar"><div className="progress"><span className="position-duration"></span></div></div><div className="label"></div></div>
+								<div className="current-track-progress ui progress" style={{backgroundColor: 'white'}}><div className="bar" style={trackingBarStyle}><div className="progress"><span className="position-duration"></span></div></div><div className="label"></div></div>
 							</div>
 						</div>
 					</div>
