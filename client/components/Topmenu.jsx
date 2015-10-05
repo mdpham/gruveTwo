@@ -23,13 +23,20 @@ Topmenu = React.createClass({
 		const trackArtist = this.props.selectedTrack ? this.props.selectedTrack.user.usename : "";
 		// console.log("selectedUser", this.props.selectedUser);
 		return (
-			<div className="ui top menu" style={{marginBottom: 0}}>
+			<div className="ui top borderless menu" style={{marginBottom: 0}}>
 				<div className="cursored item" onClick={this.toggleTopbar}>
 					<div className="ui header"><i className="circular icon">g2</i></div>
 				</div>
-				<div className="item">
-					{ this.props.selectedUser ? <div className="ui header">{this.props.selectedUser.name}<div className="sub header"></div></div> : "" }
-				</div>
+					{ this.props.selectedUser ? 
+						<div className="item">
+							<div className="ui header">
+								<div className="sub header">browsing</div>
+								<a target="_blank" href={this.props.selectedUser.user.permalink_url}>{this.props.selectedUser.name}</a>
+							</div>
+						</div>
+						:
+						""
+					}
 				<div className="show-player cursored right item">
 					<i className="big orange video play icon"></i>
 				</div>

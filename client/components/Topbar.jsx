@@ -20,7 +20,7 @@ Topbar = React.createClass({
 	renderUserButtons() {
 		// console.log(this.props.friends);
 		// console.log(this);
-		var elements = this.props.friends.map((f, i) => {
+		var elements = _.shuffle(this.props.friends).map((f, i) => {
 			// console.log(this);
 			return <div className="ui button" onClick={this.selectUser.bind(this, f)} data-friend={f} key={i}>{f.name}</div>;
 		});

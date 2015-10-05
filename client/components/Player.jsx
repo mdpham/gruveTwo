@@ -28,13 +28,16 @@ Player = React.createClass({
 		console.log("play next", _.sample(this.props.selectedUser.favorites));
 		const randomTrack = _.sample(this.props.selectedUser.favorites);
 		this.props.updateSelectedTrack(randomTrack);
+
+		//Reset state
+		this.setState({paused: false, muted: false});
 	},
 
 	//RENDER//
 	render() {
 		const user = this.props.selectedUser;
 		const track = this.props.selectedTrack;
-		const playButtonClasses = "circular" + (this.state.paused ? " play " : " pause ") + "icon";
+		const playButtonClasses = (this.state.paused ? " play " : " pause ") + "large icon";
 		return (
 			<div className="player-popup ui fluid popup">
 				
@@ -56,15 +59,15 @@ Player = React.createClass({
 								{/* PLAYER FUNCTIONS */}
 								<div className="ui fluid middle aligned grid">
 									<div className="two wide column">
-										<div className="ui large fluid inverted green icon button" onClick={this.togglePause}>
+										<div className="ui large fluid inverted basic green icon button" onClick={this.togglePause}>
 											<i className={playButtonClasses}></i>
 										</div>
 									</div>
 									<div className="six wide column segment">
 										<div className="ui large fluid icon buttons">
-											<div className="ui inverted yellow button" onClick={this.changeVolume.bind(this, false)}><i className="large volume down icon"></i></div>
-											<div className="ui inverted yellow button" onClick={this.changeVolume.bind(this, true)}><i className="large volume up icon"></i></div>
-											<div className="ui inverted yellow button" onClick={this.muteVolume}><i className={(this.state.muted ? "red ":"")+"large volume off icon"}></i></div>
+											<div className="ui inverted basic yellow button" onClick={this.changeVolume.bind(this, false)}><i className="large volume down icon"></i></div>
+											<div className="ui inverted basic yellow button" onClick={this.changeVolume.bind(this, true)}><i className="large volume up icon"></i></div>
+											<div className="ui inverted basic yellow button" onClick={this.muteVolume}><i className={(this.state.muted ? "red ":"")+"large volume off icon"}></i></div>
 										</div>
 									</div>
 									<div className="two wide column">
@@ -87,7 +90,7 @@ Player = React.createClass({
 						</div>
 						<div className="middle aligned row">
 							<div className="sixteen wide column">
-								<div className="current-track-progress ui progress"><div className="bar"><div className="progress"><span className="position-duration"></span></div></div><div className="label"></div></div>
+								<div className="current-track-progress ui progress" style={{backgroundColor: 'white'}}><div className="pink bar"><div className="progress"><span className="position-duration"></span></div></div><div className="label"></div></div>
 							</div>
 						</div>
 					</div>
