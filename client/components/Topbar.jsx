@@ -39,13 +39,13 @@ Topbar = React.createClass({
 			<div className="ui top sidebar">
 				<div className="ui inverted segment">
   				<div className={loadingClassName}><div className="ui text loader">Fetching...</div></div>
+					<h1 className="ui center aligned inverted header">gruvetwo</h1>
 					<div className="ui grid container">
 						<div className="three wide column">
 							<h6 className="ui inverted horizontal divider">People</h6>
 							{ this.renderUserButtons() }
 						</div>
-						<div className="eleven wide column">
-							<h1 className="ui blue center aligned inverted header">gruvetwo</h1>
+						<div className="ten wide column">
 							<h3 className="ui inverted header">
 								<span>
 								This is my <a href="https://github.com/mdpham/gruveTwo" target="_blank">first attempt</a> at a Soundcloud app built on React and Meteor after some frustration with Angular.
@@ -63,6 +63,7 @@ Topbar = React.createClass({
 								Random
 							</div>
 						</div>
+						<div className="three wide column"></div>
 					</div>
 				</div>
 			</div>
