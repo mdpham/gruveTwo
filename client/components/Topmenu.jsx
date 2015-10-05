@@ -61,7 +61,7 @@ Topmenu = React.createClass({
 					</div>
 					</div> }
 				</div>
-				<Player selectedUser={this.props.selectedUser} selectedTrack={this.props.selectedTrack} updateSelectedTrack={this.props.updateSelectedTrack}/>
+				<Player selectedUser={this.props.selectedUser} selectedTrack={this.props.selectedTrack} updateSelectedTrack={this.props.updateSelectedTrack} playingFrom={this.props.playingFrom}/>
 			</div>
 		)
 	}

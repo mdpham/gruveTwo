@@ -56,10 +56,12 @@ Player = React.createClass({
 					<div className="ui fluid grid inverted segment">
 						<div className="middle aligned row">
 							<div className="three wide column">
-								<div className="ui medium fluid fade reveal image">
-									<img className="visible content fluid image" src={track.artwork_url}></img>
-									<img className="hidden content fluid image" src={track.user.avatar_url}></img>
-									<div className="loading-progress ui inverted white bottom attached progress">
+								<div className="ui segment">
+									<div className="ui medium fluid fade reveal image">
+										<img className="visible content fluid image" src={track.artwork_url}></img>
+										<img className="hidden content fluid image" src={track.user.avatar_url}></img>
+									</div>
+									<div className="loading-progress ui inverted bottom attached progress">
 										<div className="bar"></div>
 									</div>
 								</div>
@@ -107,7 +109,7 @@ Player = React.createClass({
 
 								<div className="ui inverted header">
 									<div className="sub header">Courtesy of:</div>
-									<a style={{color:"white"}} href={user.user.permalink_url} target="_blank">{user.name}</a>
+									<a style={{color:"white"}} href={this.props.playingFrom.link} target="_blank">{this.props.playingFrom.name}</a>
 								</div>
 							</div>
 							<div className="two wide column"></div>

@@ -55,7 +55,8 @@ App = React.createClass({
 		return ({
 			loadingSelected: false,
 			selectedUser: null,
-			selectedTrack: null
+			selectedTrack: null,
+			playingFrom: null,
 		});
 	},
 
@@ -68,7 +69,7 @@ App = React.createClass({
 		SC.get("http://api.soundcloud.com/resolve.json?url=http://soundcloud.com/"+selected.username+"&client_id=d0188b58e48199057351dfe3a4971768", function(data){
 			console.log("data", data);
 			var user = data;
-			SC.get("http://api.soundcloud.com/users/"+user.id+"/favorites?client_id=d0188b58e48199057351dfe3a4971768",{params: {limit: user.public_favorites_count}}, function(data){
+			SC.get("http://api.soundcloud.com/users/"+user.id+"/favorites?client_id=d0188b58e48199057351dfe3a4971768",{limit: user.public_favorites_count}, function(data){
 			// HTTP.call("get", "http://api.soundcloud.com/users/"+user.id+"/favorites?client_id=d0188b58e48199057351dfe3a4971768",{params: {limit: 10}}, function(error, result){
 				console.log("data", data);
 				var favorites = data.map((track) => {
@@ -91,7 +92,10 @@ App = React.createClass({
 		});
 	},
 	handleSelectedTrackUpdate(track) {
+		console.log("trackUpdate", this.state.selectedUser);
 		var _this = this;
+		//Update who you're playing from. Track will never be updated from a set not from selectedUser
+		_this.setState({playingFrom: {name: this.state.selectedUser.name, link: this.state.selectedUser.user.permalink_url}});
 		var current = soundManager.getSoundById("current");
 		var volume = current ? current.volume : 50;
 		soundManager.destroySound("current");
@@ -131,7 +135,7 @@ App = React.createClass({
 				<Topbar updateSelectedUser={this.handleSelectedUserUpdate} friends={this.props.friends} loadingSelected={this.state.loadingSelected}/>
 				
 				<div className="pusher">
-				<Topmenu selectedTrack={this.state.selectedTrack} selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate}/>
+				<Topmenu selectedTrack={this.state.selectedTrack} selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate} playingFrom={this.state.playingFrom}/>
 				{ this.state.selectedUser ? <Tracks selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate}/> : <Entry /> }
 				</div>
 			</div>
