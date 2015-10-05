@@ -94,7 +94,22 @@ App = React.createClass({
 			autoLoad: true,
 			autoPlay: true,
 			id: "current",
-			url: track.stream_url+"?client_id=d0188b58e48199057351dfe3a4971768"
+			url: track.stream_url+"?client_id=d0188b58e48199057351dfe3a4971768",
+			whileplaying: function(){
+				// console.log(this);
+				// $(".current-track-progress").progress({
+				// 	value: this.position*100/this.duration,
+				// 	text: {
+				// 		active: "Volume: "+this.volume,
+				// 		success: "Playing next track..."
+				// 	}
+				// });
+				//Update duration tracker
+				$(".current-track-progress .bar").width((10 + (90*this.position/this.duration))+"%");
+				$(".current-track-progress .bar .progress .position-duration").text(moment.utc(this.position).format("mm:ss")+"/"+moment.utc(this.duration).format("mm:ss"));
+				$(".current-track-progress").css("backgroundColor", randomColor());
+				$(".current-track-progress .bar").css("backgroundColor", randomColor());
+			}
 		});
 		console.log("updating track:", track);
 		_this.setState({selectedTrack: track});
