@@ -19,54 +19,21 @@ AccountsUI = React.createClass({
 		var validationRules = {
 				username: {
 					identifier: "username",
-					rules: [
-						{
-							type: "minLength[6]"
-						}
-					]
+					rules: [ { type: "minLength[6]" } ]
 				},
 				password: {
 					identifier: "password",
-					rules: [
-						{
-							type: _this.state.signUp ? "match[confirmPassword]" : "empty"
-						},
-						{
-							type: "minLength[6]"
-						}
-					]
+					rules: [ { type: _this.state.signUp ? "match[confirmPassword]" : "empty" }, { type: "minLength[6]" } ]
 				}
-			}
+			};
 		if (_this.state.signUp) {
 			validationRules.confirmPassword = {
 					identifier: "confirmPassword",
-					rules: [
-						{
-							type: "match[password]"
-						},
-						{
-							type: "empty"
-						}
-					]
+					rules: [ { type: "match[password]" }, { type: "empty" } ]
 				};
 		};
 		console.log(validationRules);
-		$(".accounts.form").form({
-			on: "submit",
-			fields: validationRules,
-			onSuccess: function(e,f) {
-				console.log("validation success", e, f);
-				if (_this.state.signUp) {
-					_this.registerUser(f);	
-				} else {
-					_this.signInUser(f);
-				};
-				_this.setState({signUp: false});
-			},
-			onFailure: function(e,f) {
-				console.log("validation failure", e, f);
-			}
-		});
+		$(".accounts.form").form({fields: validationRules});
 	},
 
 	componentDidMount() {
@@ -88,8 +55,8 @@ AccountsUI = React.createClass({
 	toggleRegister(up) {
 		this.setState({signUp: up});
 	},
-	//Submit sign up
-	registerUser(fields) {
+	//Submit new user
+	registerUser() {
 		console.log("register", fields);
 		Accounts.createUser({
 			username: fields.username,
@@ -97,7 +64,7 @@ AccountsUI = React.createClass({
 			profile: {
 				favorites: []
 			}
-		}, function(error){
+		}, (error) => {
 			if (error) {
 				alert(error.message);
 			} else {
@@ -106,19 +73,28 @@ AccountsUI = React.createClass({
 		})
 	},
 	//Attempt to sign user in
-	signInUser(fields) {
-		console.log("signInUser", fields);
+	signInUser() {
+		var form = $(".accounts.form");
 		var _this = this;
-		Meteor.loginWithPassword({username: fields.username}, fields.password, function(error) {
-			if (error) {
-
-			} else {
-				_this.props.updateLoggedIn(true);
-			};
-		});
+		if (form.form("is valid")) {
+			//Get field values and log in
+			let fields = form.form("get values");
+			Meteor.loginWithPassword({username: fields.username}, fields.password, (error) => {
+				if (error) {
+					console.log("ERROR SIGNING IN:", error);
+				} else{
+					console.log("SUCCESS SIGNING IN:", Meteor.user());
+					_this.props.updateLoggedIn(true);
+				};
+			});
+		} else {
+			//Reject
+			console.log("FAILURE SIGNING IN");
+		};
 	},
+	//Sign user out
 	signOutUser() {
-		Meteor.logout(this.props.updateLoggedIn.bind(this, false));
+		Meteor.logout(() => {this.props.updateLoggedIn(false)});
 		Meteor.logoutOtherClients();
 	},
 
@@ -153,11 +129,11 @@ AccountsUI = React.createClass({
 					{ this.state.signUp ?
 						<div className="ui two buttons">
 							<div className="ui small compact basic inverted fluid button" onClick={this.toggleRegister.bind(this, false)}>Back</div>
-							<div className="ui small compact inverted green fluid submit button">Submit</div>
+							<div className="ui small compact inverted green fluid button">Register</div>
 						</div>
 						: 
 						<div className="ui two buttons">
-							<div className="ui small compact inverted green fluid submit button">Sign In</div>
+							<div className="ui small compact inverted green fluid button" onClick={this.signInUser}>Sign In</div>
 							<div className="ui small compact basic inverted fluid button" onClick={this.toggleRegister.bind(this, true)}>Sign Up</div>
 						</div>
 					}
