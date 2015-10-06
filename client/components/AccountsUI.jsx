@@ -38,6 +38,7 @@ AccountsUI = React.createClass({
 			position: "left center",
 			content: error.reason,
 			onVisible: () => {
+				//Remove the popup once user goes to change input
 				element.on("focus", () => {
 					element.popup("destroy")
 				});
@@ -151,13 +152,13 @@ AccountsUI = React.createClass({
 					}
 					{ this.state.signUp ?
 						<div className="ui two buttons">
-							<div className="ui small compact basic inverted fluid button" onClick={this.toggleRegister.bind(this, false)}>Back</div>
+							<div className="ui small compact basic inverted fluid icon button" onClick={this.toggleRegister.bind(this, false)}><i className="caret left icon"></i></div>
 							<div className="ui small compact inverted green fluid button" onClick={this.registerUser}>Register</div>
 						</div>
 						: 
 						<div className="ui two buttons">
 							<div className="ui small compact inverted green fluid button" onClick={this.signInUser}>Sign In</div>
-							<div className="ui small compact basic inverted fluid button" onClick={this.toggleRegister.bind(this, true)}>Sign Up</div>
+							<div className="ui small compact basic inverted fluid icon button" onClick={this.toggleRegister.bind(this, true)}><i className="add user icon"></i></div>
 						</div>
 					}
 				</div>
