@@ -39,7 +39,7 @@ AccountsUI = React.createClass({
 			content: error.reason,
 			onVisible: () => {
 				//Remove the popup once user goes to change input
-				element.on("focus", () => {
+				$(window).on("mousemove", () => {
 					element.popup("destroy")
 				});
 			},
