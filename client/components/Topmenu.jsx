@@ -20,6 +20,9 @@ Topmenu = React.createClass({
 			transition: "scale down"
 		}).sidebar("toggle");
 	},
+	goToUser() {
+		console.log(Meteor.users.find({_id: Meteor.userId()}).fetch());
+	},
 
 	//RENDER//
 	render() {
@@ -43,7 +46,7 @@ Topmenu = React.createClass({
 					<div className="item">
 						<div className="ui header">
 							<div className="sub header">logged in</div>
-							{Meteor.user().username}
+							<a onClick={this.goToUser}>{Meteor.user().username}</a>
 						</div>
 					</div>
 					: ""}

@@ -1,9 +1,13 @@
+// Meteor.subscribe("users");
+
 Meteor.startup(function(){
 	React.render(<App />, document.getElementById("render-target"));
 })
 
 //App component - whole app
 App = React.createClass({
+	//MIXINS
+	// mixins: [ReactMeteorData],
 
 	//After initial rendering
 	componentDidMount() {
