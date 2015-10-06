@@ -57,20 +57,43 @@ AccountsUI = React.createClass({
 	},
 	//Submit new user
 	registerUser() {
-		console.log("register", fields);
-		Accounts.createUser({
-			username: fields.username,
-			password: fields.password,
-			profile: {
-				favorites: []
-			}
-		}, (error) => {
+		var form = $(".accounts.form");
+		var _this = this;
+		if (form.form("is valid")) {
+			let fields = form.form("get values");
+			Accounts.createUser({
+				username: fields.username,
+				password: fields.password,
+				profile: {
+					favorites: []
+				}
+			}, (error) => {
+				if (error) {
+					console.log("ERROR REGISTERING:", error);	
+					$("input[name='username']").popup({
+						position: "left center",
+						title: error.reason
+					}).popup("show");
+				} else {
+					console.log("SUCCESS REGISTERING");
+					$(".accounts.form").form("clear");
+					_this.meteorSignIn(fields);
+				};
+			});
+		} else {
+			console.log("FAILURE REGISTERING");
+		};
+	},
+	meteorSignIn(fields) {
+		var _this = this;
+		Meteor.loginWithPassword({username: fields.username}, fields.password, (error) => {
 			if (error) {
-				alert(error.message);
-			} else {
-				$(".accounts.form").form("clear");
-			}
-		})
+				console.log("ERROR SIGNING IN:", error);
+			} else{
+				console.log("SUCCESS SIGNING IN:", Meteor.user());
+				_this.props.updateLoggedIn(true);
+			};
+		});
 	},
 	//Attempt to sign user in
 	signInUser() {
@@ -79,14 +102,7 @@ AccountsUI = React.createClass({
 		if (form.form("is valid")) {
 			//Get field values and log in
 			let fields = form.form("get values");
-			Meteor.loginWithPassword({username: fields.username}, fields.password, (error) => {
-				if (error) {
-					console.log("ERROR SIGNING IN:", error);
-				} else{
-					console.log("SUCCESS SIGNING IN:", Meteor.user());
-					_this.props.updateLoggedIn(true);
-				};
-			});
+			_this.meteorSignIn(fields);
 		} else {
 			//Reject
 			console.log("FAILURE SIGNING IN");
@@ -129,7 +145,7 @@ AccountsUI = React.createClass({
 					{ this.state.signUp ?
 						<div className="ui two buttons">
 							<div className="ui small compact basic inverted fluid button" onClick={this.toggleRegister.bind(this, false)}>Back</div>
-							<div className="ui small compact inverted green fluid button">Register</div>
+							<div className="ui small compact inverted green fluid button" onClick={this.registerUser}>Register</div>
 						</div>
 						: 
 						<div className="ui two buttons">
