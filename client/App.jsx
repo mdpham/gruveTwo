@@ -57,6 +57,8 @@ App = React.createClass({
 			selectedUser: null,
 			selectedTrack: null,
 			playingFrom: null,
+
+			loggedIn: false
 		});
 	},
 
@@ -128,14 +130,18 @@ App = React.createClass({
 		_this.setState({selectedTrack: track});
 	},
 
+	handleLoggedInUpdate(loggedIn) {
+		this.setState({"loggedIn": loggedIn});
+	},
+
 	//RENDER//
 	render() {
 		return (
 			<div id="app">
-				<Topbar updateSelectedUser={this.handleSelectedUserUpdate} friends={this.props.friends} loadingSelected={this.state.loadingSelected}/>
+				<Topbar updateSelectedUser={this.handleSelectedUserUpdate} friends={this.props.friends} loadingSelected={this.state.loadingSelected} updateLoggedIn={this.handleLoggedInUpdate} loggedIn={this.state.loggedIn}/>
 				
 				<div className="pusher">
-				<Topmenu selectedTrack={this.state.selectedTrack} selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate} playingFrom={this.state.playingFrom}/>
+				<Topmenu selectedTrack={this.state.selectedTrack} selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate} playingFrom={this.state.playingFrom} loggedIn={this.state.loggedIn}/>
 				{ this.state.selectedUser ? <Tracks selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate}/> : <Entry /> }
 				</div>
 			</div>

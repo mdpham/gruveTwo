@@ -42,7 +42,7 @@ Topbar = React.createClass({
 					<h1 className="ui center aligned inverted header">gruvetwo</h1>
 					<div className="ui grid container">
 						<div className="three wide column">
-							<h6 className="ui inverted horizontal divider">People</h6>
+							<h6 className="ui small inverted horizontal divider">People</h6>
 							{ this.renderUserButtons() }
 						</div>
 						<div className="ten wide column">
@@ -63,7 +63,10 @@ Topbar = React.createClass({
 								Random
 							</div>
 						</div>
-						<div className="three wide column"></div>
+						<div className="three wide column">
+							<h6 className="ui small inverted horizontal divider">Account</h6>
+							<AccountsUI updateLoggedIn={this.props.updateLoggedIn} loggedIn={this.props.loggedIn}/>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -31,16 +31,25 @@ Topmenu = React.createClass({
 				<div className="cursored item" onClick={this.toggleTopbar}>
 					<div className="ui header"><i className="circular icon">g2</i></div>
 				</div>
-					{ this.props.selectedUser ? 
-						<div className="item">
-							<div className="ui header">
-								<div className="sub header">browsing</div>
-								<a target="_blank" href={this.props.selectedUser.user.permalink_url}>{this.props.selectedUser.name}</a>
-							</div>
+				{ this.props.loggedIn ? 
+					<div className="item">
+						<div className="ui header">
+							<div className="sub header">logged in</div>
+							{Meteor.user().username}
 						</div>
-						:
-						""
-					}
+					</div>
+					:
+					"" }
+				{ this.props.selectedUser ? 
+					<div className="item">
+						<div className="ui header">
+							<div className="sub header">browsing</div>
+							<a target="_blank" href={this.props.selectedUser.user.permalink_url}>{this.props.selectedUser.name}</a>
+						</div>
+					</div>
+					:
+					"" }
+
 				<div className="show-player cursored right item">
 				{ this.props.selectedTrack ? 
 					<div className="ui right aligned header">
