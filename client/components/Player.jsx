@@ -44,9 +44,7 @@ Player = React.createClass({
 	//
 	favoriteTrack(track) {
 		var _this = this;
-		Meteor.call("addTrackToProfile", Meteor.userId(), track, function(){
-			_this.setState({});
-		});
+		Meteor.call("addTrackToProfile", Meteor.userId(), track, () => { _this.setState({}); });
 	},
 
 	//RENDER//
@@ -58,7 +56,7 @@ Player = React.createClass({
 		const muteButtonClasses = (this.state.muted ? "red " : "") + "volume off icon";
 		//For favoriting
 		const loggedIn = this.props.loggedIn;
-		var favoriteButtonClasses = "ui button";
+		var favoriteButtonClasses = "ui big fluid circular basic inverted pink icon button";
 		console.log("loggedin?", loggedIn);
 		if (loggedIn && track) {
 			//Replace with mongo selector
@@ -128,7 +126,7 @@ Player = React.createClass({
 							</div>
 							{/*USER FAVORITING*/}
 							<div className="two wide column">
-								{	loggedIn ? <div className={favoriteButtonClasses} onClick={this.favoriteTrack.bind(this, track)}>favorite</div> : "" }
+								{	loggedIn ? <div className={favoriteButtonClasses} onClick={this.favoriteTrack.bind(this, track)}><i className="heart icon"></i></div> : "" }
 							</div>
 						</div>
 						<div className="middle aligned row">
