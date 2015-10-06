@@ -4,16 +4,6 @@ Accounts.ui.config({
 
 //To use Blaze UI component from accounts-ui package, wrap in a React component
 AccountsUI = React.createClass({
-	// componentDidMount() {
-	// 	//Use Meteor Blaze to render login buttons
-	// 	this.view = Blaze.render(Template.loginButtons,
-	// 		React.findDOMNode(this.refs.container));
-	// },
-
-	// componentWillUnmount() {
-	// 	//Clean up Blaze view
-	// 	Blaze.remove(this.view);
-	// },
 	formValidationUpdate() {
 		var _this = this;
 		var validationRules = {
@@ -34,6 +24,25 @@ AccountsUI = React.createClass({
 		};
 		console.log(validationRules);
 		$(".accounts.form").form({fields: validationRules});
+	},
+	accountsErrorPopup(error) {
+		var element;
+		switch (error.reason) {
+			case "Incorrect password":
+				element = $("input[name='password']");
+				break;
+			default:
+				element = $("input[name='username']");
+		};
+		element.popup({
+			position: "left center",
+			content: error.reason,
+			onVisible: () => {
+				element.on("focus", () => {
+					element.popup("destroy")
+				});
+			},
+		}).popup("show");
 	},
 
 	componentDidMount() {
@@ -70,10 +79,7 @@ AccountsUI = React.createClass({
 			}, (error) => {
 				if (error) {
 					console.log("ERROR REGISTERING:", error);	
-					$("input[name='username']").popup({
-						position: "left center",
-						title: error.reason
-					}).popup("show");
+					this.accountsErrorPopup(error);
 				} else {
 					console.log("SUCCESS REGISTERING");
 					$(".accounts.form").form("clear");
@@ -89,6 +95,7 @@ AccountsUI = React.createClass({
 		Meteor.loginWithPassword({username: fields.username}, fields.password, (error) => {
 			if (error) {
 				console.log("ERROR SIGNING IN:", error);
+				this.accountsErrorPopup(error);
 			} else{
 				console.log("SUCCESS SIGNING IN:", Meteor.user());
 				_this.props.updateLoggedIn(true);
