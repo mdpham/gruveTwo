@@ -151,7 +151,7 @@ AccountsUI = React.createClass({
 					}
 					{ this.state.signUp ?
 						<div className="ui two buttons">
-							<div className="ui small compact basic inverted fluid icon button" onClick={this.toggleRegister.bind(this, false)}><i className="caret left icon"></i></div>
+							<div className="ui small compact basic inverted fluid icon button" onClick={this.toggleRegister.bind(this, false)}><i className="arrow left icon"></i></div>
 							<div className="ui small compact inverted green fluid button" onClick={this.registerUser}>Register</div>
 						</div>
 						: 
