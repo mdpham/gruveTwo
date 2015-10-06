@@ -142,7 +142,7 @@ App = React.createClass({
 				
 				<div className="pusher">
 				<Topmenu selectedTrack={this.state.selectedTrack} selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate} playingFrom={this.state.playingFrom} loggedIn={this.state.loggedIn}/>
-				{ this.state.selectedUser ? <Tracks selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate}/> : <Entry /> }
+				{ this.state.selectedUser ? <Tracks selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate} selectedTrack={this.state.selectedTrack}/> : <Entry /> }
 				</div>
 			</div>
 		);

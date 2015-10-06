@@ -31,26 +31,27 @@ Topmenu = React.createClass({
 				<div className="cursored item" onClick={this.toggleTopbar}>
 					<div className="ui header"><i className="circular icon">g2</i></div>
 				</div>
-				{ this.props.loggedIn ? 
-					<div className="item">
-						<div className="ui header">
-							<div className="sub header">logged in</div>
-							{Meteor.user().username}
-						</div>
-					</div>
-					:
-					"" }
 				{ this.props.selectedUser ? 
 					<div className="item">
 						<div className="ui header">
 							<div className="sub header">browsing</div>
-							<a target="_blank" href={this.props.selectedUser.user.permalink_url}>{this.props.selectedUser.name}</a>
+							<a target="_blank" href={this.props.selectedUser.user.permalink_url}><span>{this.props.selectedUser.name}</span></a>
 						</div>
 					</div>
 					:
 					"" }
-
-				<div className="show-player cursored right item">
+				<div className="right menu">
+				<div className="item">
+					{ this.props.selectedTrack ?
+						<div className="ui right aligned small header">
+							<div className="sub header">
+								<span>{this.props.selectedTrack.user.username}</span>
+							</div>
+							<a href={this.props.selectedTrack.permalink_url} target="_blank"><span>{this.props.selectedTrack.title}</span></a>
+						</div>
+						: "" }
+				</div>
+				<div className="show-player cursored item">
 				{ this.props.selectedTrack ? 
 					<div className="ui right aligned header">
 					<div className="sub header">
@@ -69,6 +70,7 @@ Topmenu = React.createClass({
 						<i className="big orange soundcloud icon"></i>
 					</div>
 					</div> }
+				</div>
 				</div>
 				<Player selectedUser={this.props.selectedUser} selectedTrack={this.props.selectedTrack} updateSelectedTrack={this.props.updateSelectedTrack} playingFrom={this.props.playingFrom}/>
 			</div>

@@ -29,7 +29,7 @@ Track = React.createClass({
 			<div
 				onClick={this.clickTrack.bind(this, track)}
 				onMouseEnter={this.changeTrackBackground.bind(this, track.id)} onMouseLeave={this.revertTrackBackground.bind(this,track.id)}
-				className="cursored ui eight wide column middle aligned stackable row" key={track.id} ref={track.id}
+				className="track-row cursored ui eight wide column middle aligned stackable row" key={track.id} ref={track.id}
 				style={style}>
 					<div className="four wide column">
 						<div className="ui fluid medium image" ref={"artwork"+track.id}><img src={track.artwork_url}/></div>

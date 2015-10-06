@@ -69,9 +69,8 @@ Player = React.createClass({
 							<div className="eleven wide column">
 								{/* CURRENT TRACK INFO */}
 								<div className="ui inverted header">
-									<a style={{color:"white"}} href={track.permalink_url} target="_blank"><span>{track.title}</span></a>
 									<div className="sub header"><a style={{color:"grey"}}href={track.user.permalink_url} target="_blank"><span>{track.user.username}</span></a></div>
-
+									<a style={{color:"white"}} href={track.permalink_url} target="_blank"><span>{track.title}</span></a>
 								</div>
 								{/* PLAYER FUNCTIONS */}
 								<div className="ui fluid middle aligned grid">

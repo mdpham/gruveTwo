@@ -1,21 +1,6 @@
 //Tracks
 Tracks = React.createClass({
-	componentDidMount() {
-		// console.log($(React.findDOMNode(this.refs.playerModal)));
-		// $(React.findDOMNode(this.refs.playerModal)).modal("show");
-		// console.log(this.props);
-	},
-
-	//METHODS//
-	handleHover: {
-		handleEnterr: function(e){
-
-		},
-		handleLeave: function(e){
-		}
-	},
 	//For listing tracks
-
 	renderAllTracks() {
 		return (this.props.selectedUser.favorites.map((track) => {
 			return (
