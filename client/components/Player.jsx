@@ -49,12 +49,14 @@ Player = React.createClass({
 		//Styling
 		const playButtonClasses = (this.state.paused ? "play " : "pause ") + "icon";
 		const muteButtonClasses = (this.state.muted ? "red " : "") + "volume off icon";
+		//For favoriting
 		return (
 			<div className="player-popup ui fluid popup">
 				
 				{ track ? 
 					<div className="ui fluid grid inverted segment">
 						<div className="middle aligned row">
+							{/*ARTWORK*/}
 							<div className="three wide column">
 								<div className="ui segment">
 									<div className="ui medium fluid fade reveal image">
@@ -66,6 +68,7 @@ Player = React.createClass({
 									</div>
 								</div>
 							</div>
+							{/*TRACK AND PLAYER INFO*/}
 							<div className="eleven wide column">
 								{/* CURRENT TRACK INFO */}
 								<div className="ui inverted header">
@@ -104,14 +107,15 @@ Player = React.createClass({
 									</div>
 								</div>
 								</div>
-
-
 								<div className="ui inverted header">
 									<div className="sub header">Courtesy of:</div>
 									<a style={{color:"white"}} href={this.props.playingFrom.link} target="_blank">{this.props.playingFrom.name}</a>
 								</div>
 							</div>
-							<div className="two wide column"></div>
+							{/*USER FAVORITING*/}
+							<div className="two wide column">
+
+							</div>
 						</div>
 						<div className="middle aligned row">
 							<div className="sixteen wide column">

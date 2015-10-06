@@ -38,8 +38,15 @@ Topmenu = React.createClass({
 							<a target="_blank" href={this.props.selectedUser.user.permalink_url}><span>{this.props.selectedUser.name}</span></a>
 						</div>
 					</div>
-					:
-					"" }
+					: "" }
+				{ this.props.loggedIn ?
+					<div className="item">
+						<div className="ui header">
+							<div className="sub header">logged in</div>
+							{Meteor.user().username}
+						</div>
+					</div>
+					: ""}
 				<div className="right menu">
 				<div className="item">
 					{ this.props.selectedTrack ?

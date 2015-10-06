@@ -58,7 +58,7 @@ App = React.createClass({
 			selectedTrack: null,
 			playingFrom: null,
 
-			loggedIn: false
+			loggedIn: null
 		});
 	},
 
