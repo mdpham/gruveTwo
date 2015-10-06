@@ -22,7 +22,7 @@ AccountsUI = React.createClass({
 					rules: [ { type: "match[password]" }, { type: "empty" } ]
 				};
 		};
-		console.log(validationRules);
+		// console.log(validationRules);
 		$(".accounts.form").form({fields: validationRules});
 	},
 	accountsErrorPopup(error) {
@@ -50,7 +50,7 @@ AccountsUI = React.createClass({
 		this.formValidationUpdate();
 	},
 	componentDidUpdate() {
-		console.log("updated");
+		// console.log("updated");
 		this.formValidationUpdate();
 	},
 	getInitialState() {
@@ -125,7 +125,6 @@ AccountsUI = React.createClass({
 
 	//Render//
 	render() {
-		const toggleRegisterPrompt = this.state.signUp ? "Back" : "Sign Up";
 		return (
 			<div>
 			{ 

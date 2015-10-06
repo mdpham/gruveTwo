@@ -21,7 +21,7 @@ Topmenu = React.createClass({
 		}).sidebar("toggle");
 	},
 	goToUser() {
-		console.log(Meteor.users.find({_id: Meteor.userId()}).fetch());
+		console.log(Meteor.users.findOne({_id: Meteor.userId()}));
 	},
 
 	//RENDER//
@@ -82,7 +82,7 @@ Topmenu = React.createClass({
 					</div> }
 				</div>
 				</div>
-				<Player selectedUser={this.props.selectedUser} selectedTrack={this.props.selectedTrack} updateSelectedTrack={this.props.updateSelectedTrack} playingFrom={this.props.playingFrom}/>
+				<Player selectedUser={this.props.selectedUser} selectedTrack={this.props.selectedTrack} updateSelectedTrack={this.props.updateSelectedTrack} playingFrom={this.props.playingFrom} loggedIn={this.props.loggedIn}/>
 			</div>
 		)
 	}

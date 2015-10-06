@@ -97,11 +97,8 @@ App = React.createClass({
 			})
 		});
 	},
-	handleSelectedTrackUpdate(track) {
-		console.log("trackUpdate", this.state.selectedUser);
+	changeCurrentSound(track) {
 		var _this = this;
-		//Update who you're playing from. Track will never be updated from a set not from selectedUser
-		_this.setState({playingFrom: {name: this.state.selectedUser.name, link: this.state.selectedUser.user.permalink_url}});
 		var current = soundManager.getSoundById("current");
 		var volume = current ? current.volume : 50;
 		soundManager.destroySound("current");
@@ -130,6 +127,13 @@ App = React.createClass({
 				_this.handleSelectedTrackUpdate(randomTrack);
 			}
 		});
+	},
+	handleSelectedTrackUpdate(track) {
+		console.log("trackUpdate", this.state.selectedUser);
+		var _this = this;
+		//Update who you're playing from. Track will never be updated from a set not from selectedUser
+		_this.setState({playingFrom: {name: this.state.selectedUser.name, link: this.state.selectedUser.user.permalink_url}});
+		_this.changeCurrentSound(track);
 		console.log("updating track:", track);
 		_this.setState({selectedTrack: track});
 	},

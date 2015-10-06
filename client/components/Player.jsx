@@ -41,6 +41,13 @@ Player = React.createClass({
 		//Reset state
 		this.setState({paused: false, muted: false});
 	},
+	//
+	favoriteTrack(track) {
+		var _this = this;
+		Meteor.call("addTrackToProfile", Meteor.userId(), track, function(){
+			_this.setState({});
+		});
+	},
 
 	//RENDER//
 	render() {
@@ -50,6 +57,13 @@ Player = React.createClass({
 		const playButtonClasses = (this.state.paused ? "play " : "pause ") + "icon";
 		const muteButtonClasses = (this.state.muted ? "red " : "") + "volume off icon";
 		//For favoriting
+		const loggedIn = this.props.loggedIn;
+		var favoriteButtonClasses = "ui button";
+		console.log("loggedin?", loggedIn);
+		if (loggedIn && track) {
+			//Replace with mongo selector
+			favoriteButtonClasses += (_.contains(_.pluck(Meteor.users.findOne({_id: Meteor.userId()}).profile.favorites, "id"), track.id)) ? " disabled" : "";
+		};
 		return (
 			<div className="player-popup ui fluid popup">
 				
@@ -114,7 +128,7 @@ Player = React.createClass({
 							</div>
 							{/*USER FAVORITING*/}
 							<div className="two wide column">
-
+								{	loggedIn ? <div className={favoriteButtonClasses} onClick={this.favoriteTrack.bind(this, track)}>favorite</div> : "" }
 							</div>
 						</div>
 						<div className="middle aligned row">

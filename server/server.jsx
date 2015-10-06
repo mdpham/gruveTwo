@@ -5,3 +5,13 @@
 // 		_id: this.userId
 // 	});
 // })
+
+Meteor.methods({
+	addTrackToProfile: (userId, track) => {
+		console.log("Adding track ", track, "to user with id ", userId);
+		const a = new Date;
+		Meteor.users.update({_id: userId}, {
+			 $addToSet: {'profile.favorites': track}
+		})
+	}
+});
