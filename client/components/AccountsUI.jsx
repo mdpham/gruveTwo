@@ -100,6 +100,7 @@ AccountsUI = React.createClass({
 			} else{
 				console.log("SUCCESS SIGNING IN:", Meteor.user());
 				_this.props.updateLoggedIn(true);
+				$(".ui.top.sidebar").sidebar("toggle");
 			};
 		});
 	},

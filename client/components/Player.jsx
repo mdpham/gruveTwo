@@ -56,7 +56,7 @@ Player = React.createClass({
 		const muteButtonClasses = (this.state.muted ? "red " : "") + "volume off icon";
 		//For favoriting
 		const loggedIn = this.props.loggedIn;
-		var favoriteButtonClasses = "ui big fluid circular basic inverted pink icon button";
+		var favoriteButtonClasses = "ui big fluid circular inverted pink icon button";
 		console.log("loggedin?", loggedIn);
 		if (loggedIn && track) {
 			//Replace with mongo selector
