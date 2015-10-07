@@ -2,7 +2,8 @@
 Tracks = React.createClass({
 	//For listing tracks
 	renderAllTracks() {
-		return (this.props.selectedUser.favorites.map((track) => {
+		console.log(this.props);
+		return (this.props.tracksToDisplay.map((track) => {
 			return (
 				<Track track={track} key={track.id} updateSelectedTrack={this.props.updateSelectedTrack}/>
 			);

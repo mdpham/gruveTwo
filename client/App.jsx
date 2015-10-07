@@ -62,11 +62,16 @@ App = React.createClass({
 			selectedTrack: null,
 			playingFrom: null,
 
-			loggedIn: null
+			loggedIn: null,
+			tracksToDisplay: null
 		});
 	},
 
 	//METHODS//
+	handleTracksToDisplay(tracks) {
+		console.log("tracks to display:", tracks);
+		this.setState({tracksToDisplay: tracks});
+	},
 	handleSelectedUserUpdate(selected) {
 		console.log(selected);
 		var _this = this;
@@ -91,7 +96,7 @@ App = React.createClass({
 					name: selected.name,
 					favorites: favorites
 				};
-				_this.setState({selectedUser: newSelected});
+				_this.setState({selectedUser: newSelected, tracksToDisplay: favorites});
 				//Hide user selection topbar
 				$(".ui.top.sidebar").sidebar("hide");
 			})
@@ -149,8 +154,10 @@ App = React.createClass({
 				<Topbar updateSelectedUser={this.handleSelectedUserUpdate} friends={this.props.friends} loadingSelected={this.state.loadingSelected} updateLoggedIn={this.handleLoggedInUpdate} loggedIn={this.state.loggedIn}/>
 				
 				<div className="pusher">
-				<Topmenu selectedTrack={this.state.selectedTrack} selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate} playingFrom={this.state.playingFrom} loggedIn={this.state.loggedIn}/>
-				{ this.state.selectedUser ? <Tracks selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate} selectedTrack={this.state.selectedTrack}/> : <Entry /> }
+				<Topmenu selectedTrack={this.state.selectedTrack} selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate} playingFrom={this.state.playingFrom} loggedIn={this.state.loggedIn} updateTracksToDisplay={this.handleTracksToDisplay}/>
+				{ this.state.selectedUser ? 
+						<Tracks selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate} selectedTrack={this.state.selectedTrack} tracksToDisplay={this.state.tracksToDisplay}/> : 
+						<Entry /> }
 				</div>
 			</div>
 		);
