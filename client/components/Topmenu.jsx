@@ -20,10 +20,10 @@ Topmenu = React.createClass({
 			transition: "scale down"
 		}).sidebar("toggle");
 	},
-	displayUserTracks() {
+	displayUserFavorites() {
 		var userFavorites = Meteor.users.findOne({_id: Meteor.userId()}).profile.favorites;
 		console.log(userFavorites);
-		this.props.updateTracksToDisplay(userFavorites);
+		this.props.displayUserFavorites(userFavorites);
 	},
 
 	//RENDER//
@@ -40,7 +40,12 @@ Topmenu = React.createClass({
 					<div className="item">
 						<div className="ui header">
 							<div className="sub header">browsing</div>
-							<a target="_blank" href={this.props.selectedUser.user.permalink_url}><span>{this.props.selectedUser.name}</span></a>
+							{ this.props.displayingUserFavorites ? 
+								<span>{Meteor.user().username}</span>
+								:
+								<a target="_blank" href={this.props.selectedUser.user.permalink_url}><span>{this.props.selectedUser.name}</span></a>
+							}
+							
 						</div>
 					</div>
 					: "" }
@@ -48,7 +53,7 @@ Topmenu = React.createClass({
 					<div className="item">
 						<div className="ui header">
 							<div className="sub header">logged in</div>
-							<a onClick={this.displayUserTracks}>{Meteor.user().username}</a>
+							<a onClick={this.displayUserFavorites}>{Meteor.user().username}</a>
 						</div>
 					</div>
 					: ""}

@@ -44,6 +44,8 @@ Player = React.createClass({
 	//
 	favoriteTrack(track) {
 		var _this = this;
+		//Favorited tracks keep track of which friend liked it
+		track.courtesyOf = _this.props.playingFrom;
 		Meteor.call("addTrackToProfile", Meteor.userId(), track, () => { _this.setState({}); });
 	},
 
@@ -121,7 +123,11 @@ Player = React.createClass({
 								</div>
 								<div className="ui inverted header">
 									<div className="sub header">Courtesy of:</div>
-									<a style={{color:"white"}} href={this.props.playingFrom.link} target="_blank">{this.props.playingFrom.name}</a>
+									{	track.courtesyOf ?
+										<a style={{color:"white"}} href={track.courtesyOf.link} target="_blank">{track.courtesyOf.name}</a>
+										:
+										<a style={{color:"white"}} href={this.props.playingFrom.link} target="_blank">{this.props.playingFrom.name}</a>
+									}
 								</div>
 							</div>
 							{/*USER FAVORITING*/}

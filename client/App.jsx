@@ -63,14 +63,16 @@ App = React.createClass({
 			playingFrom: null,
 
 			loggedIn: null,
-			tracksToDisplay: null
+			tracksToDisplay: null,
+			//For Meteor users
+			displayingUserFavorites: null,
 		});
 	},
 
 	//METHODS//
-	handleTracksToDisplay(tracks) {
+	displayUserFavorites(tracks) {
 		console.log("tracks to display:", tracks);
-		this.setState({tracksToDisplay: tracks});
+		this.setState({tracksToDisplay: tracks, displayingUserFavorites: true});
 	},
 	handleSelectedUserUpdate(selected) {
 		console.log(selected);
@@ -96,7 +98,7 @@ App = React.createClass({
 					name: selected.name,
 					favorites: favorites
 				};
-				_this.setState({selectedUser: newSelected, tracksToDisplay: favorites});
+				_this.setState({selectedUser: newSelected, tracksToDisplay: favorites, displayingUserFavorites: false});
 				//Hide user selection topbar
 				$(".ui.top.sidebar").sidebar("hide");
 			})
@@ -154,7 +156,10 @@ App = React.createClass({
 				<Topbar updateSelectedUser={this.handleSelectedUserUpdate} friends={this.props.friends} loadingSelected={this.state.loadingSelected} updateLoggedIn={this.handleLoggedInUpdate} loggedIn={this.state.loggedIn}/>
 				
 				<div className="pusher">
-				<Topmenu selectedTrack={this.state.selectedTrack} selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate} playingFrom={this.state.playingFrom} loggedIn={this.state.loggedIn} updateTracksToDisplay={this.handleTracksToDisplay}/>
+				<Topmenu 
+					selectedUser={this.state.selectedUser} 
+					selectedTrack={this.state.selectedTrack} updateSelectedTrack={this.handleSelectedTrackUpdate} playingFrom={this.state.playingFrom}
+					loggedIn={this.state.loggedIn} displayUserFavorites={this.displayUserFavorites} displayingUserFavorites={this.state.displayingUserFavorites}/>
 				{ this.state.selectedUser ? 
 						<Tracks selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate} selectedTrack={this.state.selectedTrack} tracksToDisplay={this.state.tracksToDisplay}/> : 
 						<Entry /> }
