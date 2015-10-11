@@ -63,6 +63,7 @@ App = React.createClass({
 			playingFrom: null,
 
 			loggedIn: null,
+			//Array of tracks to display
 			tracksToDisplay: null,
 			//For Meteor users
 			displayingUserFavorites: null,
@@ -70,10 +71,10 @@ App = React.createClass({
 	},
 
 	//METHODS//
-	displayUserFavorites(tracks) {
-		console.log("tracks to display:", tracks);
-		this.setState({tracksToDisplay: tracks, displayingUserFavorites: true});
-	},
+	// displayUserFavorites(tracks) {
+	// 	console.log("tracks to display:", tracks);
+	// 	this.setState({tracksToDisplay: tracks, displayingUserFavorites: true, selectedUser: true});
+	// },
 	handleSelectedUserUpdate(selected) {
 		console.log(selected);
 		var _this = this;
@@ -104,32 +105,46 @@ App = React.createClass({
 			})
 		});
 	},
+
+	displayUserFavorites() {
+		var favorites = Meteor.users.findOne({_id: Meteor.userId()}).profile.favorites;
+		favorites.reverse();
+		let newSelected = {
+			//this is gross
+			user: null,
+			name: Meteor.user().username,
+			favorites
+		};
+		console.log("displayUserFavorites:", newSelected);
+		this.setState({tracksToDisplay: favorites, displayingUserFavorites: true});
+	},
+
 	changeCurrentSound(track) {
 		var _this = this;
 		var current = soundManager.getSoundById("current");
-		var volume = current ? current.volume : 50;
+		// var volume = current ? current.volume : 50;
 		soundManager.destroySound("current");
 		soundManager.createSound({
 			autoLoad: true,
 			autoPlay: true,
 			id: "current",
-			volume: volume,
+			volume: current ? current.volume : 50,
 			url: track.stream_url+"?client_id=d0188b58e48199057351dfe3a4971768",
-			whileloading: function(){
+			whileloading(){
 				$(".loading-progress .bar").width((10 + (90*this.bytesLoaded/this.bytesTotal))+"%");
 			},
-			whileplaying: function(){
+			whileplaying(){
 				//Update duration tracker
 				$(".current-track-progress .bar").width((10 + (90*this.position/this.duration))+"%");
 				$("span.position-duration").text(moment.utc(this.position).format("m:ss")+"/"+moment.utc(this.duration).format("m:ss"));
 				//Volume
 				$("span.volume-indicator").text(Math.max(Math.min(this.volume, 100), 0));
 			},
-			onstop: function(){
+			onstop(){
 				$(".current-track-progress .bar").width("10%"); //min is 10
 				$(".current-track-progress .bar .progress .position-duration").text(moment.utc(0).format("m:ss")+"/"+moment.utc(this.duration).format("m:ss"));
 			},
-			onfinish: function(){
+			onfinish(){
 				var randomTrack = _.sample(_this.state.selectedUser.favorites);
 				_this.handleSelectedTrackUpdate(randomTrack);
 			}
@@ -146,7 +161,12 @@ App = React.createClass({
 	},
 
 	handleLoggedInUpdate(loggedIn) {
-		this.setState({"loggedIn": loggedIn});
+		var _this = this;
+		_this.setState({"loggedIn": loggedIn});
+		if (!loggedIn) {
+			_this.handleSelectedUserUpdate(_.sample(this.props.friends));
+			Meteor.logout(() => {Meteor.logoutOtherClients();});
+		};
 	},
 
 	//RENDER//

@@ -119,8 +119,7 @@ AccountsUI = React.createClass({
 	},
 	//Sign user out
 	signOutUser() {
-		Meteor.logout(() => {this.props.updateLoggedIn(false)});
-		Meteor.logoutOtherClients();
+		this.props.updateLoggedIn(false);
 	},
 
 

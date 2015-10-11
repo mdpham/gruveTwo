@@ -13,7 +13,7 @@ Topbar = React.createClass({
 		//Update parent/owner
 		this.props.updateSelectedUser(selected);
 		//Hide topbar
-		$(".ui.top.sidebar").sidebar("hide");
+		// $(".ui.top.sidebar").sidebar("hide");
 	},
 
 	//Buttons for selecting individual users//

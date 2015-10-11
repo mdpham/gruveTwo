@@ -21,9 +21,9 @@ Topmenu = React.createClass({
 		}).sidebar("toggle");
 	},
 	displayUserFavorites() {
-		var userFavorites = Meteor.users.findOne({_id: Meteor.userId()}).profile.favorites;
-		console.log(userFavorites);
-		this.props.displayUserFavorites(userFavorites);
+		// var userFavorites = Meteor.users.findOne({_id: Meteor.userId()}).profile.favorites;
+		// console.log(userFavorites);
+		this.props.displayUserFavorites();
 	},
 
 	//RENDER//
@@ -31,6 +31,7 @@ Topmenu = React.createClass({
 		const trackTitle = this.props.selectedTrack ? this.props.selectedTrack.title : "";
 		const trackArtist = this.props.selectedTrack ? this.props.selectedTrack.user.usename : "";
 		// console.log("selectedUser", this.props.selectedUser);
+		console.log("meteor user: ", Meteor.user());
 		return (
 			<div className="ui top borderless menu" style={{marginBottom: 0}}>
 				<div className="cursored item" onClick={this.toggleTopbar}>
@@ -49,7 +50,7 @@ Topmenu = React.createClass({
 						</div>
 					</div>
 					: "" }
-				{ this.props.loggedIn ?
+				{ this.props.loggedIn && Meteor.user() ?
 					<div className="item">
 						<div className="ui header">
 							<div className="sub header">logged in</div>
