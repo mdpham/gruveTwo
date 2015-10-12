@@ -54,7 +54,7 @@ Topmenu = React.createClass({
 					<div className="item">
 						<div className="ui header">
 							<div className="sub header">logged in</div>
-							<a onClick={this.displayUserFavorites}>{Meteor.user().username}</a>
+							<a className="cursored" onClick={this.displayUserFavorites}>{Meteor.user().username}</a>
 						</div>
 					</div>
 					: ""}
