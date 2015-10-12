@@ -41,7 +41,7 @@ Topmenu = React.createClass({
 					<div className="item">
 						<div className="ui header">
 							<div className="sub header">browsing</div>
-							{ this.props.displayingUserFavorites ? 
+							{ this.props.displayingUserFavorites && this.props.loggedIn ? 
 								<span>{Meteor.user().username}</span>
 								:
 								<a target="_blank" href={this.props.selectedUser.user.permalink_url}><span>{this.props.selectedUser.name}</span></a>
