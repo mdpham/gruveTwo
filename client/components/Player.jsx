@@ -36,10 +36,12 @@ Player = React.createClass({
 	playNext() {
 		console.log("play next", _.sample(this.props.selectedUser.favorites));
 		const randomTrack = _.sample(this.props.selectedUser.favorites);
-		this.props.updateSelectedTrack(randomTrack);
-
-		//Reset state
-		this.setState({paused: false, muted: false});
+		//Don't do anything if no track to browse (favorites is empty array)
+		if (!randomTrack) {
+			this.props.updateSelectedTrack(randomTrack);
+			//Reset state
+			this.setState({paused: false, muted: false});			
+		};
 	},
 	//
 	favoriteTrack(track) {

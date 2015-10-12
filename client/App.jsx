@@ -71,10 +71,6 @@ App = React.createClass({
 	},
 
 	//METHODS//
-	// displayUserFavorites(tracks) {
-	// 	console.log("tracks to display:", tracks);
-	// 	this.setState({tracksToDisplay: tracks, displayingUserFavorites: true, selectedUser: true});
-	// },
 	handleSelectedUserUpdate(selected) {
 		console.log(selected);
 		var _this = this;
@@ -105,7 +101,6 @@ App = React.createClass({
 			})
 		});
 	},
-
 	displayUserFavorites() {
 		var favorites = Meteor.users.findOne({_id: Meteor.userId()}).profile.favorites;
 		favorites.reverse();
@@ -145,7 +140,7 @@ App = React.createClass({
 				$(".current-track-progress .bar .progress .position-duration").text(moment.utc(0).format("m:ss")+"/"+moment.utc(this.duration).format("m:ss"));
 			},
 			onfinish(){
-				var randomTrack = _.sample(_this.state.selectedUser.favorites);
+				var randomTrack = _.sample(_this.state.tracksToDisplay);
 				_this.handleSelectedTrackUpdate(randomTrack);
 			}
 		});
@@ -154,7 +149,10 @@ App = React.createClass({
 		console.log("trackUpdate", this.state.selectedUser);
 		var _this = this;
 		//Update who you're playing from. Track will never be updated from a set not from selectedUser
-		_this.setState({playingFrom: {name: this.state.selectedUser.name, link: this.state.selectedUser.user.permalink_url}});
+		_this.setState({playingFrom: {
+			name: this.state.selectedUser.name, 
+			link: this.state.selectedUser.user ? this.state.selectedUser.user.permalink_url : ""}
+		});
 		_this.changeCurrentSound(track);
 		console.log("updating track:", track);
 		_this.setState({selectedTrack: track});
@@ -180,7 +178,7 @@ App = React.createClass({
 					selectedUser={this.state.selectedUser} 
 					selectedTrack={this.state.selectedTrack} updateSelectedTrack={this.handleSelectedTrackUpdate} playingFrom={this.state.playingFrom}
 					loggedIn={this.state.loggedIn} displayUserFavorites={this.displayUserFavorites} displayingUserFavorites={this.state.displayingUserFavorites}/>
-				{ this.state.selectedUser ? 
+				{ this.state.tracksToDisplay ? 
 						<Tracks selectedUser={this.state.selectedUser} updateSelectedTrack={this.handleSelectedTrackUpdate} selectedTrack={this.state.selectedTrack} tracksToDisplay={this.state.tracksToDisplay}/> : 
 						<Entry /> }
 				</div>
