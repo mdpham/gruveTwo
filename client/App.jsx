@@ -116,7 +116,7 @@ App = React.createClass({
 			favorites
 		};
 		console.log("displayUserFavorites:", newSelected);
-		this.setState({tracksToDisplay: favorites, displayingUserFavorites: true});
+		this.setState({tracksToDisplay: favorites, displayingUserFavorites: true, selectedUser: newSelected});
 	},
 
 	changeCurrentSound(track) {
